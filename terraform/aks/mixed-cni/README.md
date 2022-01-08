@@ -32,7 +32,7 @@ Each of the logical components are broken into specific files.  While [main.tf](
 
 ## Example Deployment
 
-<Todo: Add network diagram>
+![Deployment network diagram](./vnet-cni.png "Deployment network diagram")
 
 Based on the diagram above, the basic components of the deployment are outlined below:
 
@@ -71,9 +71,26 @@ The following table contains the Terraform variables required for deployment and
 
 ## Deploying Terraform
 
+In order to deploy the cluster:
 
+1. Checkout the Terraform scripts
+2. Create the terraform.tfvars file, say `/tmp/terraform.tfvars`
+3. `terraform init`
+4. `terraform apply -var-file=/tmp/terraform.tfvars` and answer `yes` when asked to do the deployment.
 
-## Topics Out of Scope
+Once the cluster is deployed, one can get the credentials and interact with the cluster as follows:
 
+- `az aks get-credentials --resource-group "aksmxdcni" --name "mixedcni-djdodx-aks"`
+- `kubectl get nodes`
 
+Which will result in the following:
 
+```bash
+$ kubectl get nodes
+NAME                              STATUS   ROLES   AGE     VERSION
+aks-defpool-20406575-vmss000000   Ready    agent   12m     v1.21.7
+aks-defpool-20406575-vmss000001   Ready    agent   12m     v1.21.7
+aks-defpool-20406575-vmss000002   Ready    agent   12m     v1.21.7
+akswinpl1000000                   Ready    agent   8m55s   v1.21.7
+akswinpl1000001                   Ready    agent   8m52s   v1.21.7
+```
