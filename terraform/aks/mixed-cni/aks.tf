@@ -16,10 +16,11 @@ resource "azurerm_kubernetes_cluster" "mixed_cni" {
   }
 
   default_node_pool {
-    name       = "defpool"
-    node_count = var.default_node_pool_count
-    vm_size    = var.default_node_pool_vm_size
+    name           = "defpool"
+    node_count     = var.default_node_pool_count
+    vm_size        = var.default_node_pool_vm_size
     vnet_subnet_id = local.subnet1_id
+    max_pods       = var.default_node_pool_max_pods
   }
 
   windows_profile {
@@ -41,6 +42,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "mixed_cni" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.mixed_cni.id
   vm_size               = var.win_pool_vm_size
   node_count            = var.win_pool_count
+  max_pods              = var.win_pool_max_pods
   os_type               = "Windows"
   vnet_subnet_id        = local.subnet2_id
 }

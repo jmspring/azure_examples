@@ -34,6 +34,10 @@ variable "default_node_pool_name" {
   type = string
 }
 
+variable "default_node_pool_max_pods" {
+  type = string
+}
+
 variable "linux_node_ssh_key" {
   type = string
 }
@@ -47,6 +51,10 @@ variable "win_pool_vm_size" {
 }
 
 variable "win_pool_count" {
+  type = number
+}
+
+variable "win_pool_max_pods" {
   type = number
 }
 
